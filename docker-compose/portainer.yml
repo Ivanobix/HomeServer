@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  # Servicio para Portainer
+  portainer:
+    image: portainer/portainer-ce                           # Imagen oficial de Portainer
+    container_name: portainer                               # Nombre del contenedor
+    restart: always                                         # Reiniciar el contenedor siempre que se detenga
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "${PORTAINER_PORT}:9443"                            # Variable de entorno para el puerto de Portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "${PORTAINER_DATA_PATH}/data:/data:rw"              # Variable de entorno para el path de datos de Portainer
+    environment:
+      TZ: ${TIMEZONE}                                       # Variable de entorno para la zona horaria

@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  # Servicio para Jellyfin
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin                     # Imagen oficial de Jellyfin
+    container_name: jellyfin                                # Nombre del contenedor
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}                                      # Variable de entorno para la zona horaria
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}         # Variable de entorno para la URL de Jellyfin
+    volumes:
+      - "${JELLYFIN_CONFIG_PATH}:/config"                   # Variable de entorno para el path de configuración
+      - "${MEDIA_PATH}/Series:/data/tvshows"                # Variable de entorno para la ubicación de las series
+      - "${MEDIA_PATH}/Pelis:/data/movies"                  # Variable de entorno para la ubicación de las películas
+    devices:
+      # Se puede requerir un chmod en el host para este dispositivo (sudo chmod g+rw /dev/dri/renderD128)
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    restart: always                                         # Reiniciar el contenedor siempre que se detenga
+    networks:
+      proxynet:
+        ipv4_address: 172.67.67.30
+
+# Declaración de redes
+networks:
+  proxynet:
+    external: true                                          # Esta red es externa y no será creada por Docker Compose

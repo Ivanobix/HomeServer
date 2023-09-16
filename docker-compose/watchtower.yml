@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  # Servicio para Watchtower (automatización de actualizaciones de contenedores Docker)
+  watchtower:
+    image: containrrr/watchtower                     # Imagen oficial de Watchtower
+    container_name: watchtower                       # Nombre del contenedor
+    restart: always                                 # Reiniciar siempre que el contenedor se detenga
+    environment:  
+      - TZ=${WATCHTOWER_TZ}                         # Zona horaria
+      - WATCHTOWER_CLEANUP=true                     # Limpia contenedores viejos tras actualizar
+      - WATCHTOWER_INCLUDE_RESTARTING=false         # No incluir contenedores que se estén reiniciando en la actualización
+      - WATCHTOWER_INCLUDE_STOPPED=false            # No incluir contenedores detenidos en la actualización
+      - WATCHTOWER_NOTIFICATIONS=email              # Tipo de notificación (email en este caso)
+      - WATCHTOWER_NOTIFICATION_EMAIL_FROM=${WATCHTOWER_NOTIFICATION_EMAIL_FROM}        # Email desde el que se enviarán las notificaciones
+      - WATCHTOWER_NOTIFICATION_EMAIL_TO=${WATCHTOWER_NOTIFICATION_EMAIL_TO}            # Email al que se enviarán las notificaciones
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER=${WATCHTOWER_NOTIFICATION_EMAIL_SERVER}    # Servidor de email para las notificaciones
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT=${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT}  # Puerto del servidor de email
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER}  # Usuario del servidor de email
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD}  # Contraseña del servidor de email
+      - WATCHTOWER_NOTIFICATION_EMAIL_DELAY=2       # Retraso en la notificación de email
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock   # Montar el socket de Docker para que Watchtower pueda interactuar con el daemon de Docker
+

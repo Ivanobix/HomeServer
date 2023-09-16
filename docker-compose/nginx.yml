@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Servicio para el administrador del proxy Nginx
+  app:
+    container_name: nginx                           # Nombre del contenedor
+    image: 'jc21/nginx-proxy-manager'               # Imagen oficial del Nginx Proxy Manager
+    runtime: kata-runtime                           # Usar el runtime "kata-runtime" para mayor seguridad
+    restart: always                                # Siempre reiniciar si el contenedor se detiene
+    ports:
+      - '${HTTP_PORT}:80'                           # Puerto público HTTP
+      - '${HTTPS_PORT}:443'                         # Puerto público HTTPS
+      - '${ADMIN_PORT}:81'                          # Puerto para la interfaz de administración web
+      # Agregar cualquier otro puerto de Stream que quieras exponer, como FTP.
+    environment:
+      DISABLE_IPV6: true                            # Deshabilitar IPv6 si no es necesario
+    volumes:
+      - ${DATA_VOLUME}:/data                        # Volumen para datos del Nginx Proxy Manager
+      - ${LETS_ENCRYPT_VOLUME}:/etc/letsencrypt     # Volumen para los certificados LetsEncrypt
+    networks:
+      nginx_network:
+        ipv4_address: ${NGINX_IP}                   # Dirección IP en la red "nginx_network"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'                               # Limitar el uso de CPU
+          memory: 1024M                             # Limitar la memoria a 1GB
+
+networks:
+  nginx_network:
+    name: nginx_network                            # Nombre de la red
+    ipam:
+      driver: default
+      config:
+       - subnet: 5.5.5.0/24
+

@@ -1,0 +1,41 @@
+# Versión de la estructura Docker Compose
+version: "3"
+
+services:
+  # Servicio para NextCloud
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud        # Imagen oficial de NextCloud
+    container_name: nextcloud-app               # Nombre del contenedor
+    environment:                                # Variables de entorno
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}                          # Sustituido por variable de entorno
+    volumes:                                    # Volúmenes (almacenamiento)
+      - ${APP_CONFIG_PATH}:/config
+      - ${DATA_PATH}:/data
+    restart: always                             # Reiniciar el contenedor siempre que se detenga
+    networks:                                   # Redes a las que está conectado
+      proxynet:
+        ipv4_address: 172.67.67.40
+
+  # Servicio para la base de datos MariaDB
+  db:
+    container_name: nextcloud-db                # Nombre del contenedor
+    image: mariadb                       # Imagen oficial de MariaDB
+    restart: always                             # Reiniciar el contenedor siempre que se detenga
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW  # Comando para iniciar MariaDB con ciertas configuraciones
+    volumes:                                    # Volúmenes (almacenamiento)
+      - ${DB_CONFIG_PATH}:/var/lib/mysql
+    environment:                                # Variables de entorno
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    networks:                                   # Redes a las que está conectado
+      proxynet:
+        ipv4_address: 172.67.67.41
+    
+# Declaración de redes
+networks:
+  proxynet:
+    external: true                              # Esta red es externa y no será creada por Docker Compose

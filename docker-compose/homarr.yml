@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  # Servicio para Homarr
+  homarr:
+    container_name: homarr                               # Nombre del contenedor
+    image: ghcr.io/ajnart/homarr                         # Imagen oficial de Homarr
+    restart: always                                      # Reiniciar el contenedor siempre que se detenga
+    volumes:
+      - "${HOMARR_CONFIG_PATH}/configs:/app/data/configs"   # Sustituido por variable de entorno
+      - "${HOMARR_CONFIG_PATH}/icons:/app/public/icons"     # Sustituido por variable de entorno
+    ports:
+      - "${HOMARR_PORT}:7575"                            # Usa una variable para el puerto

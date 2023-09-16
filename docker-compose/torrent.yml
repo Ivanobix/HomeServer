@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  # Servicio para Gluetun (VPN)
+  gluetun:
+    container_name: gluetun                                # Nombre del contenedor
+    image: qmcgaw/gluetun                                  # Imagen oficial de Gluetun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "${GLUETUN_PORT}:25600"                            # Variable de entorno para el puerto
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_PROVIDER}               # Variable de entorno para el proveedor de VPN
+      - VPN_TYPE=${VPN_TYPE}                               # Variable de entorno para el tipo de VPN
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}             # Variable de entorno para la llave privada
+      - SERVER_HOSTNAMES=${VPN_SERVER_HOSTNAMES}           # Variable de entorno para los servidores
+    restart: always
+    
+  # Servicio para qBittorrent
+  torrent:
+    container_name: qBittorrent                            # Nombre del contenedor
+    image: ghcr.io/linuxserver/qbittorrent                 # Imagen oficial de qBittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}                                     # Variable de entorno para la zona horaria
+      - WEBUI_PORT=${QB_WEBUI_PORT}                        # Variable de entorno para el puerto de la interfaz web de qBittorrent
+    volumes:
+      - "${TORRENT_CONFIG_PATH}:/config"                   # Variable de entorno para el path de configuración
+      - "${TORRENT_DOWNLOAD_PATH}:/downloads"              # Variable de entorno para el path de descargas
+    network_mode: container:gluetun
+    depends_on:
+      - gluetun
+    restart: always

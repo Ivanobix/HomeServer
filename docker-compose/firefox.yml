@@ -1,0 +1,51 @@
+version: "2.1"
+
+# Define los servicios que se desean ejecutar.
+services:
+  # Servicio para el contenedor de Firefox.
+  firefox:
+    # Imagen de Docker que se usará para el contenedor.
+    image: lscr.io/linuxserver/firefox
+    
+    # Nombre del contenedor de Firefox.
+    container_name: firefox
+    
+    # Opciones de seguridad para el contenedor. En este caso, deshabilitamos algunas restricciones.
+    security_opt:
+      - seccomp:unconfined # Esta opción puede ser opcional, dependiendo de tus necesidades.
+    
+    # Variables de entorno para la configuración del contenedor.
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # Usa una variable de entorno para la zona horaria.
+      - TZ=${TIMEZONE}
+      # Usa una variable de entorno para el título.
+      - TITLE=${BROWSER_TITLE}
+      # Usa una variable de entorno para el nombre de usuario personalizado.
+      - CUSTOM_USER=${BROWSER_USER}
+      # Usa una variable de entorno para la contraseña.
+      - PASSWORD=${BROWSER_PASSWORD}
+    
+    # Volumen para guardar la configuración de Firefox.
+    volumes:
+      - ${CONFIG_PATH}/firefox:/config
+    
+    # Tamaño de memoria compartida para el contenedor.
+    shm_size: "2gb"
+    
+    # Política de reinicio para el contenedor. En este caso, reinicia a menos que se detenga manualmente.
+    restart: always
+    
+    # Redes en las que el contenedor estará presente.
+    networks:
+      nginx_network:
+        # Dirección IP específica para el contenedor en la red nginx_network.
+        ipv4_address: 5.5.5.10
+
+# Definición de redes.
+networks:
+  # Red nginx_network que se referencia en el servicio anterior.
+  nginx_network:
+    # Indica que esta red ya existe fuera de este archivo y no debe ser creada.
+    external: true

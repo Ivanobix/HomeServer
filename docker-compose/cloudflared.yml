@@ -1,0 +1,14 @@
+# Versión de la estructura Docker Compose
+version: "3.8"
+
+services:
+  # Servicio para Cloudflared (túnel Argo de Cloudflare)
+  cloudflared:
+    image: cloudflare/cloudflared                # Imagen oficial de Cloudflared
+    container_name: cloudflared                  # Nombre del contenedor
+    network_mode: "host"                         # Modo de red del contenedor (usa la red del host)
+    restart: always                              # Reiniciar el contenedor siempre que se detenga
+    command: tunnel run                          # Comando para iniciar el túnel Argo
+    environment:                                 # Variables de entorno
+      # Usa una variable de entorno para el Token del túnel
+      - TUNNEL_TOKEN=${CLOUDFLARED_TUNNEL_TOKEN}

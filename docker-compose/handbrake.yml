@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  # Servicio para HandBrake
+  handbrake:
+    image: jlesage/handbrake                           # Imagen oficial de HandBrake
+    container_name: handbrake                          # Nombre del contenedor
+    restart: always                                    # Reiniciar el contenedor siempre que se detenga
+    ports:
+      - "${HANDBRAKE_PORT}:5800"                       # Usa una variable para el puerto
+    environment:
+      - LANG=es_ES
+      - TZ=${TIMEZONE}                                 # Sustituido por variable de entorno
+      - DARK_MODE=1
+      - AUTOMATED_CONVERSION=1
+      - AUTOMATED_CONVERSION_KEEP_SOURCE=0
+      - AUTOMATED_CONVERSION_PRESET=${CONVERSION_PRESET}  # Sustituido por variable de entorno
+      - AUTOMATED_CONVERSION_FORMAT=MKV
+    volumes:
+      - "${CONFIG_PATH}/handbrake:/config:rw"          # Sustituido por variable de entorno
+      - "${MEDIA_PATH}/Transcoding:/storage:ro"        # Sustituido por variable de entorno
+      - "${MEDIA_PATH}/Transcoding/Queue:/watch:rw"    # Sustituido por variable de entorno
+      - "${MEDIA_PATH}/Transcoding/Result:/output:rw"  # Sustituido por variable de entorno

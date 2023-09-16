@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Servicio para Pingvin-Share
+  pingvin-share:
+    container_name: pingvin                                # Nombre del contenedor
+    image: stonith404/pingvin-share                        # Imagen oficial de Pingvin-Share
+    restart: always                                        # Reiniciar el contenedor siempre que se detenga
+    volumes:
+      - "${PINGVIN_DATA_PATH}/data:/opt/app/backend/data"  # Variable de entorno para el path de datos
+      - "${PINGVIN_DATA_PATH}/images:/opt/app/frontend/public/img" # Variable de entorno para el path de imágenes
+    networks:
+      nginx_network:
+        ipv4_address: 5.5.5.8
+
+# Declaración de redes
+networks:
+    nginx_network:
+      external: true                                         # Esta red es externa y no será creada por Docker Compose
