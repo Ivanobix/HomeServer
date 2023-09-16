@@ -12,7 +12,7 @@ En resumen, este servidor ha sido meticulosamente diseñado y configurado para p
 
 ## **⚙️ Configuración del Hardware**
 
-#### **🖥️ NAS QNAP TS-464**
+### **🖥️ NAS QNAP TS-464**
 
 El sistema NAS QNAP TS-464 es un dispositivo de almacenamiento robusto y confiable, diseñado para ofrecer rendimiento y flexibilidad. La especificación de hardware de este sistema incluye:
 
@@ -24,7 +24,7 @@ El sistema NAS QNAP TS-464 es un dispositivo de almacenamiento robusto y confiab
 
 - **Conexión** - El sistema dispone de dos conexiones Ethernet de 2.5 Gbit, proporcionando un enlace de red de alta velocidad para transferencias de datos rápidas y eficientes.
 
-#### **📡 Router TP-Link Archer AX73**
+### **📡 Router TP-Link Archer AX73**
 
 El TP-Link Archer AX73, seleccionado por su alto rendimiento y confiabilidad, es fundamental para el correcto funcionamiento de nuestro servidor. Con un potente procesador de cuatro núcleos a 1.5GHz, garantiza transferencias de datos rápidas y eficientes a través de sus puertos Ethernet Gigabit.
 
@@ -36,13 +36,13 @@ Su interfaz de usuario intuitiva facilita la gestión del router, lo que ayuda a
 
 El sistema de almacenamiento está diseñado para proporcionar una mezcla de rendimiento y capacidad. Se han implementado varias tecnologías y estrategias para cumplir con estos requisitos.
 
-#### **Unidades de Estado Sólido (SSD)**
+### **Unidades de Estado Sólido (SSD)**
 Las dos unidades de estado sólido Crucial P5 Plus CT1000P5PSSD8 de 1TB están configuradas en RAID 1. Esto significa que los datos se duplican en ambas unidades, lo que proporciona una protección completa contra la pérdida de datos en caso de un fallo de una unidad. Este arreglo está destinado a albergar el sistema operativo, los contenedores Docker/LXD, las máquinas virtuales y las configuraciones del sistema.
 
-#### **Unidades de Disco Duro (HDD)**
+### **Unidades de Disco Duro (HDD)**
 Las cuatro unidades de disco duro Seagate Exos 7E8 de 8TB están configuradas en RAID 5. Esto proporciona un equilibrio entre el rendimiento, la capacidad de almacenamiento y la protección de datos. En caso de fallo de un disco, los datos se pueden reconstruir a partir de los datos existentes en los otros discos. Este arreglo está destinado al almacenamiento de datos en general y al almacenamiento de contenido multimedia.
 
-#### **Almacenamiento en Medios Offline**
+### **Almacenamiento en Medios Offline**
 Para la redundancia adicional y la protección contra desastres, se dispone de dos unidades de disco duro WD My Book de 8TB. Estas unidades no están en RAID y se utilizan para respaldos manuales.
 
 ## **🛠️ Programaciones de Mantenimiento**
@@ -96,7 +96,7 @@ La estrategia de respaldo y la protección de datos son componentes esenciales d
 
 Actualmente el servidor cuenta con una gran variedad de herramientas y servicios desplegados mediante diferentes enfoques y tecnologías, entre los que destacan:
 
-#### **Docker (Container Station)**
+### **Docker (Container Station)**
 
 - **Portainer:** Esta herramienta proporciona una interfaz de usuario intuitiva para administrar todos tus contenedores. Permite un control total sobre tus entornos, facilitando la implementación, la actualización y el mantenimiento de las aplicaciones.
 
@@ -110,12 +110,12 @@ Actualmente el servidor cuenta con una gran variedad de herramientas y servicios
 
 - **NordVPN y qBittorrent:** NordVPN es un servicio de Red Privada Virtual (VPN) que te permite navegar por internet de manera segura y anónima. Por otro lado, qBittorrent es un cliente de descarga de archivos torrent de código abierto y multiplataforma. Al combinarse, estos dos servicios te permiten descargar y compartir archivos de manera segura y privada, protegiendo tu identidad y tus datos en línea. NordVPN te ayuda a enmascarar tu dirección IP, mientras que qBittorrent te proporciona una plataforma eficiente para descargar archivos torrent.
 
-#### **Máquinas Virtuales (Virtualization Station)**
+### **Máquinas Virtuales (Virtualization Station)**
 
 Las máquinas virtuales facilitan la ejecución de aplicaciones y programas que no son nativamente compatibles con el sistema operativo del NAS. 
 - **Windows 10:** Para maximizar la versatilidad y la funcionalidad de nuestro sistema, utilizamos una máquina virtual que opera con Windows 10. Esta configuración nos permite ejecutar aplicaciones específicas que requieren este sistema operativo, proporcionando así una solución flexible que puede adaptarse a una amplia variedad de necesidades y requisitos.
 
-#### **Sincronización de Archivos**
+### **Sincronización de Archivos**
 
 La sincronización de archivos asegura la uniformidad y accesibilidad de los datos en múltiples dispositivos y plataformas. 
 - **Qsync:** Esta solución de sincronización de archivos en tiempo real permite la coordinación de archivos entre el NAS y otros dispositivos, incluyendo ordenadores de escritorio, portátiles y dispositivos móviles. 
@@ -124,11 +124,11 @@ La sincronización de archivos asegura la uniformidad y accesibilidad de los dat
 
 Para mejorar la funcionalidad, el rendimiento y la seguridad del sistema, se han integrado varios servicios de terceros. Estos servicios, seleccionados por su confiabilidad y eficacia, juegan un papel crucial en la optimización del sistema.
 
-#### **Cloudflare** 
+### **Cloudflare** 
 Cloudflare es un proveedor líder de servicios de red que ofrece una variedad de soluciones para mejorar la seguridad y el rendimiento de la red. En nuestro sistema, utilizamos Cloudflare para una serie de funciones esenciales, incluyendo CDNA (DNS + Caché + Proxy), Access (Zero Trust Tunnel), WAF y protección contra DDoS. Estos servicios ayudan a proteger el sistema contra ataques potenciales, mejoran la velocidad y la eficiencia de la red y proporcionan una capa adicional de seguridad para garantizar la integridad de los datos.
 
-#### **Brevo (Sendinblue)** 
+### **Brevo (Sendinblue)** 
 Brevo, anteriormente conocido como Sendinblue, se utiliza para el envío de correos automáticos. Este servicio es esencial para mantener una comunicación efectiva y oportuna, permitiendo el envío eficiente de notificaciones y alertas. Brevo ofrece una plataforma confiable y fácil de usar que garantiza que las comunicaciones importantes se entreguen de manera rápida y segura.
 
-#### **Next DNS**
+### **Next DNS**
 Next DNS es un servicio que proporciona un DNS privado, lo que mejora significativamente la privacidad y la seguridad del sistema. Al utilizar Next DNS, podemos controlar y proteger el tráfico de red, bloquear el acceso a sitios web y servicios potencialmente dañinos y proteger los datos sensibles de las amenazas en línea.
