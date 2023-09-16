@@ -1,4 +1,4 @@
-# **☢️ TOXIC SERVER ☢️**
+# **☢️ HOME SERVER ☢️**
 
 Este documento ofrece un análisis detallado sobre la estructura y operatividad de un servidor basado en el sistema NAS QNAP TS-464. Este servidor, diseñado para brindar un rendimiento sólido y fiable, está equipado con componentes de hardware de nivel empresarial, lo cual supone un elevado coste inicial, pero que será completamente rentable a medio y largo plazo.
 
