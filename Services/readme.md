@@ -4,7 +4,7 @@
 
 # 🐋 Docker Compose Collection 📦
 
-Bienvenidos a este repositorio, el cual contiene una meticulosa selección de archivos `docker-compose.yml` diseñados para desplegar aplicaciones y servicios con Docker Compose.
+Este repositorio contiene una meticulosa selección de archivos `docker-compose.yml` diseñados para desplegar aplicaciones y servicios con Docker Compose.
 
 ## 📘 ¿Qué es Docker Compose?
 
