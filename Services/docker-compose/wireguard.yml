@@ -17,17 +17,9 @@ services:
       - WG_PORT=${WG_UDP_PORT}                # Puerto para conexiones VPN
       - WG_DEFAULT_DNS=${WG_DEFAULT_DNS}      # DNS predeterminado para los clientes VPN
       - WG_ALLOWED_IPS=${WG_ALLOWED_IPS}      # IPs permitidas para routing
-    networks:
-      proxynet:
-        ipv4_address: ${WG_IPV4_ADDRESS}      # Dirección IP en la red proxynet
     cap_add:
       - NET_ADMIN                            # Necesario para configurar interfaces de red
       - SYS_MODULE                           # Necesario para cargar módulos del kernel
     sysctls:
       - net.ipv4.ip_forward=1                # Permitir el reenvío de paquetes
       - net.ipv4.conf.all.src_valid_mark=1   # Necesario para iptables y WireGuard
-
-networks:
-  proxynet:
-    external: true                           # Usar una red definida previamente llamada "proxynet"
-
