@@ -114,6 +114,8 @@ Actualmente el servidor cuenta con una gran variedad de herramientas y servicios
 
 - **Resilio Sync:** Es una herramienta de sincronización de archivos peer-to-peer (P2P) que permite sincronizar datos entre múltiples dispositivos de forma rápida y segura. Utiliza la tecnología BitTorrent para transferir archivos, lo que asegura una sincronización eficiente incluso cuando se manejan grandes cantidades de datos. A diferencia de las soluciones tradicionales de almacenamiento en la nube, Resilio Sync no depende de un servidor centralizado, por lo que tus datos se transfieren directamente entre tus dispositivos sin pasar por un tercer intermediario. Esto no solo acelera el proceso, sino que también aumenta la privacidad y seguridad de tus datos. Ideal para realizar copias de seguridad, compartir archivos grandes o mantener a todo un equipo sincronizado.
 
+[Ver detalles de los servicios](https://github.com/Ivanobix/HomeServer/blob/main/Services/readme.md)
+
 ### **Máquinas Virtuales (Virtualization Station)**
 
 Las máquinas virtuales facilitan la ejecución de aplicaciones y programas que no son nativamente compatibles con el sistema operativo del NAS. 
