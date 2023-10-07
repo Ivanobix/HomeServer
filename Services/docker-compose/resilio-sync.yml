@@ -1,0 +1,23 @@
+# Especifica la versión de la estructura Docker Compose que vamos a usar
+version: "3"
+
+services:
+  # Define el servicio para Resilio Sync
+  resilio-sync:
+    # Usa la última versión de la imagen de Resilio Sync de linuxserver
+    image: lscr.io/linuxserver/resilio-sync:latest
+    # Asigna un nombre específico al contenedor para fácil identificación
+    container_name: resilio-sync-app
+    environment:  # Configura las variables de entorno para el servicio
+      - PUID=1000            # ID de usuario
+      - PGID=1000            # ID de grupo
+      - TZ=${TIMEZONE}       # Zona horaria (definida por una variable de entorno externa)
+    volumes:  # Define los volúmenes para persistencia de datos y configuración
+      - ${SYNC_CONFIG_PATH}:/config       # Ruta de configuración
+      - ${DOWNLOADS_PATH}:/downloads      # Ruta de descargas
+      - ${SYNC_PATH}:/sync                # Ruta de sincronización
+    ports:  # Define los puertos que el servicio va a exponer y mapear
+      - "${WEB_PORT}:8888/tcp"            # Puerto de interfaz web de Resilio Sync
+      - "${DATA_PORT}:55555/udp"          # Puerto de transferencia de datos de Resilio Sync
+    # Configura el contenedor para que se reinicie automáticamente en caso de fallo o detención
+    restart: always
