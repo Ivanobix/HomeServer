@@ -7,8 +7,8 @@ services:
     image: stonith404/pingvin-share                        # Imagen oficial de Pingvin-Share
     restart: always                                        # Reiniciar el contenedor siempre que se detenga
     volumes:
-      - "${PINGVIN_DATA_PATH}/data:/opt/app/backend/data"  # Variable de entorno para el path de datos
-      - "${PINGVIN_DATA_PATH}/images:/opt/app/frontend/public/img" # Variable de entorno para el path de imágenes
+      - "${DATA_PATH}/data:/opt/app/backend/data"  # Variable de entorno para el path de datos
+      - "${IMAGES_PATH}/images:/opt/app/frontend/public/img" # Variable de entorno para el path de imágenes
     networks:
       nginx_network:
         ipv4_address: 5.5.5.8

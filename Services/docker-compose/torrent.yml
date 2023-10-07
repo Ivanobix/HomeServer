@@ -1,34 +1,52 @@
 version: "3"
 
 services:
-  # Servicio para Gluetun (VPN)
+  # Define el servicio Gluetun para establecer una VPN
   gluetun:
-    container_name: gluetun                                # Nombre del contenedor
-    image: qmcgaw/gluetun                                  # Imagen oficial de Gluetun
+    # Nombre identificativo para el contenedor de Gluetun
+    container_name: gluetun
+    # Usa la imagen oficial de Gluetun
+    image: qmcgaw/gluetun
+    # Concede permisos para administrar la red en el contenedor
     cap_add:
       - NET_ADMIN
     ports:
-      - "${GLUETUN_PORT}:25600"                            # Variable de entorno para el puerto
-    environment:
-      - VPN_SERVICE_PROVIDER=${VPN_PROVIDER}               # Variable de entorno para el proveedor de VPN
-      - VPN_TYPE=${VPN_TYPE}                               # Variable de entorno para el tipo de VPN
-      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}             # Variable de entorno para la llave privada
-      - SERVER_HOSTNAMES=${VPN_SERVER_HOSTNAMES}           # Variable de entorno para los servidores
+      # Mapea el puerto del host al puerto del contenedor (puerto por defecto de Gluetun: 25600)
+      - "${GLUETUN_PORT}:25600"
+    environment: 
+      # Proveedor de servicios VPN, por ejemplo: NordVPN, ExpressVPN, etc.
+      - VPN_SERVICE_PROVIDER=${VPN_PROVIDER}
+      # Tipo de protocolo VPN: OpenVPN, WireGuard, etc.
+      - VPN_TYPE=${VPN_TYPE}
+      # Clave privada para el protocolo WireGuard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
+      # Lista de hostnames de los servidores VPN a los que conectarse
+      - SERVER_HOSTNAMES=${VPN_SERVER_HOSTNAMES}
+    # Si el contenedor se detiene, se reiniciará automáticamente
     restart: always
-    
-  # Servicio para qBittorrent
+
+  # Define el servicio qBittorrent para la descarga de torrents
   torrent:
-    container_name: qBittorrent                            # Nombre del contenedor
-    image: ghcr.io/linuxserver/qbittorrent                 # Imagen oficial de qBittorrent
+    # Nombre identificativo para el contenedor de qBittorrent
+    container_name: qBittorrent
+    # Usa la imagen oficial de qBittorrent de linuxserver
+    image: ghcr.io/linuxserver/qbittorrent
     environment:
+      # ID del usuario y del grupo para definir permisos en el contenedor
       - PUID=1000
       - PGID=1000
-      - TZ=${TIMEZONE}                                     # Variable de entorno para la zona horaria
-      - WEBUI_PORT=${QB_WEBUI_PORT}                        # Variable de entorno para el puerto de la interfaz web de qBittorrent
+      # Zona horaria para el contenedor
+      - TZ=${TIMEZONE}
+      # Puerto en el que se ejecutará la interfaz web de qBittorrent
+      - WEBUI_PORT=${QB_WEBUI_PORT}
     volumes:
-      - "${TORRENT_CONFIG_PATH}:/config"                   # Variable de entorno para el path de configuración
-      - "${TORRENT_DOWNLOAD_PATH}:/downloads"              # Variable de entorno para el path de descargas
+      # Mapea la ruta de configuración y descargas del host al contenedor
+      - "${TORRENT_CONFIG_PATH}:/config"
+      - "${TORRENT_DOWNLOAD_PATH}:/downloads"
+    # Establece el contenedor qBittorrent para que utilice la red del contenedor Gluetun
     network_mode: container:gluetun
+    # Asegura que el servicio qBittorrent se inicie solo después de que Gluetun esté en funcionamiento
     depends_on:
       - gluetun
+    # Si el contenedor se detiene, se reiniciará automáticamente
     restart: always

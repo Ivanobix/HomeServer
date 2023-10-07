@@ -6,7 +6,7 @@ services:
     image: weejewel/wg-easy                   # Imagen oficial de wg-easy
     container_name: wireguard                 # Nombre del contenedor
     volumes:
-      - /share/CACHEDEV1_DATA/Config/wireguard:/etc/wireguard  # Volumen para configuraciones de WireGuard
+      - {CONFIG_PATH}:/etc/wireguard  # Volumen para configuraciones de WireGuard
     ports:
       - "${WG_UDP_PORT}:51820/udp"             # Puerto UDP para WireGuard
       - "${WG_TCP_PORT}:51821/tcp"             # Puerto TCP para interfaz web de wg-easy
