@@ -1,6 +1,6 @@
 # **☢️ HOME SERVER ☢️**
 
-![HomeServerWallpaper](https://github.com/Ivanobix/HomeServer/assets/56084434/85198abb-8ce6-4c72-aa98-6571ab62a77d)
+![HomeServerWallpaper](https://github.com/Ivanobix/HomeServer/assets/56084434/3c91e8e9-bcd8-45ba-82f9-3d7b27e3cba8)
 
 Este documento ofrece un análisis detallado sobre la estructura y operatividad de un servidor basado en el sistema NAS QNAP TS-464. Este servidor, diseñado para brindar un rendimiento sólido y fiable, está equipado con componentes de hardware de nivel empresarial, lo cual supone un elevado coste inicial, pero que será completamente rentable a medio y largo plazo.
 
