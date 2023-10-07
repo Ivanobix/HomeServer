@@ -1,5 +1,7 @@
 # **☢️ HOME SERVER ☢️**
 
+![HomeServerWallpaper](https://github.com/Ivanobix/HomeServer/assets/56084434/85198abb-8ce6-4c72-aa98-6571ab62a77d)
+
 Este documento ofrece un análisis detallado sobre la estructura y operatividad de un servidor basado en el sistema NAS QNAP TS-464. Este servidor, diseñado para brindar un rendimiento sólido y fiable, está equipado con componentes de hardware de nivel empresarial, lo cual supone un elevado coste inicial, pero que será completamente rentable a medio y largo plazo.
 
 Para garantizar transferencias de datos veloces y eficaces, el servidor incorpora un router de alto rendimiento y ha sido configurado con diversas estrategias y tecnologías destinadas a optimizar tanto su rendimiento como su seguridad.
@@ -110,15 +112,12 @@ Actualmente el servidor cuenta con una gran variedad de herramientas y servicios
 
 - **NordVPN y qBittorrent:** NordVPN es un servicio de Red Privada Virtual (VPN) que te permite navegar por internet de manera segura y anónima. Por otro lado, qBittorrent es un cliente de descarga de archivos torrent de código abierto y multiplataforma. Al combinarse, estos dos servicios te permiten descargar y compartir archivos de manera segura y privada, protegiendo tu identidad y tus datos en línea. NordVPN te ayuda a enmascarar tu dirección IP, mientras que qBittorrent te proporciona una plataforma eficiente para descargar archivos torrent.
 
+- **Resilio Sync:** Es una herramienta de sincronización de archivos peer-to-peer (P2P) que permite sincronizar datos entre múltiples dispositivos de forma rápida y segura. Utiliza la tecnología BitTorrent para transferir archivos, lo que asegura una sincronización eficiente incluso cuando se manejan grandes cantidades de datos. A diferencia de las soluciones tradicionales de almacenamiento en la nube, Resilio Sync no depende de un servidor centralizado, por lo que tus datos se transfieren directamente entre tus dispositivos sin pasar por un tercer intermediario. Esto no solo acelera el proceso, sino que también aumenta la privacidad y seguridad de tus datos. Ideal para realizar copias de seguridad, compartir archivos grandes o mantener a todo un equipo sincronizado.
+
 ### **Máquinas Virtuales (Virtualization Station)**
 
 Las máquinas virtuales facilitan la ejecución de aplicaciones y programas que no son nativamente compatibles con el sistema operativo del NAS. 
 - **Windows 10:** Para maximizar la versatilidad y la funcionalidad de nuestro sistema, utilizamos una máquina virtual que opera con Windows 10. Esta configuración nos permite ejecutar aplicaciones específicas que requieren este sistema operativo, proporcionando así una solución flexible que puede adaptarse a una amplia variedad de necesidades y requisitos.
-
-### **Sincronización de Archivos**
-
-La sincronización de archivos asegura la uniformidad y accesibilidad de los datos en múltiples dispositivos y plataformas. 
-- **Qsync:** Esta solución de sincronización de archivos en tiempo real permite la coordinación de archivos entre el NAS y otros dispositivos, incluyendo ordenadores de escritorio, portátiles y dispositivos móviles. 
 
 ## **🌐 Servicios de Terceros**
 
