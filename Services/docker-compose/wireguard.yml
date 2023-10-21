@@ -1,25 +1,33 @@
 version: "3"
 
 services:
-  # Servicio para WireGuard (VPN de fácil configuración)
-  wg-easy:
-    image: weejewel/wg-easy                   # Imagen oficial de wg-easy
-    container_name: wireguard                 # Nombre del contenedor
-    volumes:
-      - {CONFIG_PATH}:/etc/wireguard  # Volumen para configuraciones de WireGuard
-    ports:
-      - "${WG_UDP_PORT}:51820/udp"             # Puerto UDP para WireGuard
-      - "${WG_TCP_PORT}:51821/tcp"             # Puerto TCP para interfaz web de wg-easy
-    restart: always                           # Reiniciar siempre que el contenedor se detenga
-    environment:
-      - WG_HOST=${WG_HOST}                    # Nombre del host para el servidor VPN
-      - PASSWORD=${WG_PASSWORD}               # Contraseña para acceso a la interfaz web
-      - WG_PORT=${WG_UDP_PORT}                # Puerto para conexiones VPN
-      - WG_DEFAULT_DNS=${WG_DEFAULT_DNS}      # DNS predeterminado para los clientes VPN
-      - WG_ALLOWED_IPS=${WG_ALLOWED_IPS}      # IPs permitidas para routing
+  # Servicio para WireGuard (VPN)
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest     # Imagen oficial de linuxserver/wireguard
+    container_name: wireguard                       # Nombre del contenedor
     cap_add:
       - NET_ADMIN                            # Necesario para configurar interfaces de red
       - SYS_MODULE                           # Necesario para cargar módulos del kernel
+    environment:
+      - PUID=1000                             # ID de usuario
+      - PGID=1000                             # ID de grupo
+      - TZ=Europe/Madrid                      # Zona horaria
+      - SERVERURL=tu.dominio.com              # URL del servidor
+      - SERVERPORT=${WG_UDP_PORT}             # Puerto del servidor, recomendable usar variable
+      - PEERS=pc1,pc2,mv1,mv2                 # Nombres de los clientes (peers)
+      - PEERDNS=auto                          # DNS para los clientes
+      - INTERNAL_SUBNET=10.13.13.0            # Subred interna
+      - ALLOWEDIPS=${WG_ALLOWED_IPS}          # IPs permitidas para routing, recomendable usar variable
+      - LOG_CONFS=false                       # Mostrar QRs por consola
+    volumes:
+      # Volumen para configuraciones de WireGuard
+      - "${WG_CONFIG_PATH}:/config"
+      # Opcional: módulos del kernel
+      - "${WG_MODULES_PATH}:/lib/modules"
+    ports:
+      - "${WG_EXPOSED_PORT}:51820/udp"        # Puerto UDP para WireGuard, usando variable para port externo
     sysctls:
-      - net.ipv4.ip_forward=1                # Permitir el reenvío de paquetes
-      - net.ipv4.conf.all.src_valid_mark=1   # Necesario para iptables y WireGuard
+      # Permitir el reenvío de paquetes
+      - net.ipv4.conf.all.src_valid_mark=1
+    # Reiniciar siempre que el contenedor se detenga
+    restart: always
